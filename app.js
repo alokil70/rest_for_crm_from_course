@@ -1,13 +1,19 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const passport = require('passport')
+const db = require('./config/database')
+
 
 
 const app = express()
 
-const db = require('./config/database')
 db.authenticate()
     .then(() => console.log('Database connected...'))
     .catch(err => console.log('Error ' + err))
+
+
+app.use(passport.initialize())
+require('./middleware/passport')(passport)
 
 
 app.use(require('morgan')('dev'))
