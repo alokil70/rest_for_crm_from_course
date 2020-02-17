@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 const User = require('../models/User')
+const errorHandler = require('../utils/errorHandler')
 require('dotenv').config()
 
 
@@ -47,8 +48,8 @@ module.exports.register = async function (req, res) {
             .then(res.status(201).json({
                 message: 'user created'
             }))
-            .catch({
-                message: 'error create user'
+            .catch(err => {
+                errorHandler(err, res)
             })
     }
 }

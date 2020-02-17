@@ -15,8 +15,8 @@ const Product = db.define('products', {
     imageName: {
         type: Sequelize.STRING
     }
-});
+})
 
 Product.sync()
 
-module.exports = Product;
+module.exports = Product
