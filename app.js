@@ -7,6 +7,7 @@ const db = require('./config/database')
 
 const app = express()
 
+
 db.authenticate()
     .then(() => console.log('Database connected...'))
     .catch(err => console.log('Error ' + err))
