@@ -11,18 +11,28 @@ const options = {
 
 module.exports = passport => {
     passport.use(
-        new JwtStrategy(options, async (payload, done) => {
-            await User.findByPk(payload.id), (err, user) => {
-                if (err) {
-                    return done(err, false);
-                }
-                if (user) {
-                    return done(null, user);
-                } else {
-                    return done(null, false);
-                    // or you could create a new account
-                }
+        new JwtStrategy(options, function (payload, done) {
+                User.findOne({where: {id: payload.id}})
+                    .then(user => {
+                        return done(null, user)
+                    })
+                    .catch(() => {
+                        return done(null, false);
+                    })
+            }
+
+        ))
+}
+/*
+module.exports = passport => {
+    passport.use(
+        new JwtStrategy(options, function (payload, done) {
+            const user = User.findOne({ where: {id: payload.id} })
+            if (user) {
+                return done(null, user);
+            } else {
+                return done(null, false);
             }
         })
     )
-}
+}*/
