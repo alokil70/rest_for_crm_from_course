@@ -2,7 +2,7 @@ const db = require('../models')
 const errorHandler = require('../utils/errorHandler')
 
 
-module.exports.getAll = function (req, res) {
+module.exports.getAll = function(req, res) {
     db.Product.findAll({
         //where: {ProductId: req.body.category},
         include: [db.Category]
@@ -14,7 +14,7 @@ module.exports.getAll = function (req, res) {
     })
 }
 
-module.exports.create = function (req, res) {
+module.exports.create = function(req, res) {
     db.Product.create({
         productName: req.body.productName,
         description: req.body.description,
@@ -29,10 +29,18 @@ module.exports.create = function (req, res) {
     })
 }
 
-module.exports.remove = function (req, res) {
-
+module.exports.remove = function(req, res) {
+    const id = req.params.id
+    db.Product.destroy({
+        where: { id: id }
+    }).then(product => {
+        res.json(product)
+        res.status(200)
+    }).catch(err => {
+        errorHandler(err, res)
+    })
 }
 
-module.exports.update = function (req, res) {
+module.exports.update = function(req, res) {
 
 }

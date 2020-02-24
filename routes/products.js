@@ -14,7 +14,7 @@ router.post('/',
     //passport.authenticate('jwt', {session: false}),
     controller.create)
 
-router.delete('/:id', controller.remove)
+router.post('/delete/:id', controller.remove)
 
 router.patch('/:id', controller.update)
 
