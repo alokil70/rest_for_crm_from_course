@@ -1,22 +1,32 @@
-const Sequelize = require('sequelize')
-const db = require('../config/database')
-
-const Product = db.define('products', {
-
-    productName: {
-        type: Sequelize.STRING
-    },
-    description: {
-        type: Sequelize.STRING
-    },
-    price: {
-        type: Sequelize.DOUBLE
-    },
-    imageName: {
-        type: Sequelize.STRING
+'use strict'
+module.exports = (sequelize, DataTypes) => {
+    const Product = sequelize.define(
+        'Product',
+        {
+            productName: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            description: {
+                type: DataTypes.STRING
+            },
+            imageName: {
+                type: DataTypes.STRING
+            },
+            price: {
+                type: DataTypes.FLOAT,
+                allowNull: false
+            }
+        },
+        {}
+    )
+    Product.associate = function(models) {
+/*        Product.hasMany(models.Position, {
+            onDelete: 'cascade'
+        })*/
+        Product.belongsTo(models.Category, {
+            onDelete: 'cascade'
+        })
     }
-})
-
-Product.sync()
-
-module.exports = Product
+    return Product
+}

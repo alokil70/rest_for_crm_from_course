@@ -1,7 +1,7 @@
 'use strict'
 module.exports = (sequelize, DataTypes) => {
-    const Position = sequelize.define(
-        'Position',
+    const Profile = sequelize.define(
+        'Profile',
         {
             name: {
                 type: DataTypes.STRING,
@@ -10,12 +10,12 @@ module.exports = (sequelize, DataTypes) => {
         },
         {}
     )
-    Position.associate = function(models) {
-        Position.belongsTo(models.Product, {
+    Profile.associate = function(models) {
+        Profile.belongsTo(models.User, {
             foreignKey: {
                 allowNull: false
             }
         })
     }
-    return Position
+    return Profile
 }

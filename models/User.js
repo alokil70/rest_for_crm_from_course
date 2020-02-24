@@ -1,24 +1,26 @@
-const Sequelize = require('sequelize')
-const db = require('../config/database')
-
-const User = db.define('users', {
-
-    email: {
-        type: Sequelize.STRING,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: Sequelize.STRING,
-        required: true
+'use strict'
+module.exports = (sequelize, DataTypes) => {
+    const User = sequelize.define(
+        'User',
+        {
+            email: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            password: {
+                type: DataTypes.STRING,
+                allowNull: false
+            }
+        },
+        {}
+    )
+    User.associate = function(models) {
+        User.hasMany(models.Post, {
+            onDelete: 'cascade'
+        })
+        User.hasOne(models.Profile, {
+            onDelete: 'cascade'
+        })
     }
-});
-
-User.sync({ force: false })/*.then(() => {
-    return User.create({
-        email: 'asd@mail.com',
-        password: 'qwer'
-    });
-});*/
-
-module.exports = User;
+    return User
+}
