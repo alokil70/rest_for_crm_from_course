@@ -5,15 +5,15 @@
         "database": "resttest",
         "host": "192.168.0.10",
         "dialect": "postgres",
-        "operatorsAliases": false
+        "operatorsAliases": 1
     },
     "test": {
         "username": "postgres",
         "password": "1111",
-        "database": "test",
-        "host": "192.168.0.10",
+        "database": "resttest",
+        "host": "127.0.0.1",
         "dialect": "postgres",
-        "operatorsAliases": false
+        "operatorsAliases": 1
     },
     "production": {
         "username": "root",
